@@ -16,6 +16,7 @@ public class Number : Tile {
 	public override void UpdatePos(){
 		if (this.numberGameObj != null) {
 			this.numberGameObj.transform.SetParent (GameObject.Find ("Canvas").transform); 
+			this.numberGameObj.transform.SetParent (GameObject.Find ("Numbers").transform); 
 			this.numberGameObj.transform.localScale = new Vector3 (1, 1, 1);
 			this.numberGameObj.GetComponent<RectTransform>().localPosition = new Vector3(-350 +180 * x, 350 + -180 * y, 0);
 		}

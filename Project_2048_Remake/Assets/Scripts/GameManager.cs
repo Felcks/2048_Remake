@@ -5,6 +5,7 @@ public enum DIRECTION { UP, RIGHT, DOWN, LEFT };
 public class GameManager : MonoBehaviour {
 	public Tile[][] allTiles;
 	public int matrixSize = 4;
+	private SceneManager sceneManager;
 
 	private void Start(){
 		this.allTiles = new Tile[this.matrixSize][];
@@ -18,24 +19,30 @@ public class GameManager : MonoBehaviour {
 		//Creating the firsts two tiles
 		this.CreateTile ();
 		this.CreateTile ();
+		//Get SceneManager
+		this.sceneManager = this.gameObject.GetComponent<SceneManager> ();
 	}
 
 	private void Update(){
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 			this.Move(DIRECTION.UP);
 			this.CreateTile ();
+			CheckGameOver();
 		}
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
 			this.Move(DIRECTION.RIGHT);
 			this.CreateTile ();
+			CheckGameOver();
 		}
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
 			this.Move(DIRECTION.DOWN);
 			this.CreateTile ();
+			CheckGameOver();
 		}
 		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 			this.Move(DIRECTION.LEFT);
 			this.CreateTile ();
+			CheckGameOver();
 		}
 	}
 
@@ -110,6 +117,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void CreateTile(){
+		//First check if there is a Empty Tile
+		if (!this.CheckEmptyTiles ())
+			return;
+
 		//Get a Empty Tile
 		Tile tile = null;
 		do {
@@ -121,6 +132,51 @@ public class GameManager : MonoBehaviour {
 		                                                    Quaternion.identity);
 		number.UpdatePos ();
 		this.allTiles [tile.x] [tile.y] = number;
+	}
+
+	private bool CheckGameOver(){
+		//Conditions for gamever: No one empty tyle and no possibilities to merge
+		//First check empty tiles
+		if (this.CheckEmptyTiles ())
+			return false;
+
+		//Then check possibilities around like up, down, right, left;
+		for (int i=0; i<this.allTiles.Length; i++) {
+			for (int j=0; j<this.allTiles[i].Length; j++) {
+			 	//relembring up, right, down, left
+				Tile[] tilesAround = new Tile[] { new Empty(0,0), new Empty(0,0), new Empty(0,0), new Empty(0,0)};
+				if(j > 0)
+					tilesAround[0] = this.allTiles[i][j-1];
+				if(i < 3)
+					tilesAround[1] = this.allTiles[i+1][j];
+				if(j < 3)
+					tilesAround[2] = this.allTiles[i][j+1];
+				if(i > 0)
+					tilesAround[3] = this.allTiles[i-1][j];
+
+				for(int t=0; t<tilesAround.Length; t++){
+					if(tilesAround[t] != null){
+						if(tilesAround[t].GetValue() == this.allTiles[i][j].GetValue()){
+							return false;
+						}
+					}
+				}
+			}
+		}
+
+		this.sceneManager.gameOver = true;
+		return true;
+	}
+
+	private bool CheckEmptyTiles(){
+		for (int i=0; i<this.allTiles.Length; i++) {
+			for (int j=0; j<this.allTiles[i].Length; j++) {
+				if(this.allTiles[i][j].tileType.Equals(TILETYPE.EMPTY))
+					return true;
+			}
+		}
+
+		return false;
 	}
 
 	private Tile RaffleTile(){
