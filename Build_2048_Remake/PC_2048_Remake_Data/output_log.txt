@@ -15,7 +15,7 @@ Loading C:\Users\Felck\Projetos\2048_Remake\Build_2048_Remake\PC_2048_Remake_Dat
 Platform assembly: C:\Users\Felck\Projetos\2048_Remake\Build_2048_Remake\PC_2048_Remake_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Felck\Projetos\2048_Remake\Build_2048_Remake\PC_2048_Remake_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Felck\Projetos\2048_Remake\Build_2048_Remake\PC_2048_Remake_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.133 seconds
+- Completed reload, in  0.130 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
@@ -23,10 +23,4 @@ XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Initialized touch support.
 Platform assembly: C:\Users\Felck\Projetos\2048_Remake\Build_2048_Remake\PC_2048_Remake_Data\Managed\System.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: eb4 -> priority: 1 
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 9.198815 ms
-
-Unloading 57 unused Assets to reduce memory usage. Loaded Objects now: 292.
-Total: 0.734261 ms (FindLiveObjects: 0.081349 ms CreateObjectMapping: 0.028811 ms MarkObjects: 0.574528 ms  DeleteObjects: 0.047453 ms)
-
+  Thread -> id: 1060 -> priority: 1 
